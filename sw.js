@@ -1,5 +1,4 @@
 var CACHE_NAME = 'my-site-cache-v1';
-console.log(location);
 var urlsToCache = [
   '/',
   '/assets/11-matchningsprincipen.svg',
@@ -25,7 +24,8 @@ var urlsToCache = [
   '/assets/cropped-favicon-320x320.png',
   '/assets/cropped-favicon-64x64.png',
   '/assets/util.js'
-];
+].map((url) => `${location.pathname.replace('/sw.js', '')}${url}`);
+console.log('urlsToCache', urlsToCache);
 
 self.addEventListener('install', function(event) {
   // Perform install steps
