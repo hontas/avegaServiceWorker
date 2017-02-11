@@ -25,7 +25,6 @@ var urlsToCache = [
   '/assets/cropped-favicon-64x64.png',
   '/assets/util.js'
 ].map((url) => `${location.pathname.replace('/sw.js', '')}${url}`);
-console.log('urlsToCache', urlsToCache);
 
 self.addEventListener('install', function(event) {
   // Perform install steps
@@ -41,6 +40,13 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', event => {
+  // delete old caches
+  event.waitUntil(
+    caches.keys()
+      .then((keys) => {
+        console.log(keys);
+      })
+  );
   console.log(`${CACHE_NAME} ready to handle fetches!`);
 });
 
