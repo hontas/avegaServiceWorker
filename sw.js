@@ -1,4 +1,4 @@
-var CACHE_NAME = 'my-site-cache-v1';
+var CACHE_NAME = 'avegagroup.se-cache-v1';
 var urlsToCache = [
   '/',
   '/assets/11-matchningsprincipen.svg',
@@ -28,7 +28,8 @@ var urlsToCache = [
 
 self.addEventListener('install', function(event) {
   // Perform install steps
-  console.log(`${CACHE_NAME} installing`);
+  // - cache static assets
+  console.log(`${CACHE_NAME} install`);
 
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -40,7 +41,10 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', event => {
-  // delete old caches
+  // Perform activate steps
+  // - delete old caches
+  console.log(`${CACHE_NAME} activate`);
+
   event.waitUntil(
     caches.keys()
       .then((keys) => Promise.all(
