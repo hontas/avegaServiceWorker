@@ -20,6 +20,9 @@ var urlsToCache = [
   '/assets/reception.jpg',
   '/assets/scripts.js',
   '/assets/stats.js',
+  '/assets/women_2.jpg',
+  '/assets/cropped-favicon-320x320.png',
+  '/assets/cropped-favicon-64x64.png',
   '/assets/util.js'
 ];
 
