@@ -43,11 +43,15 @@ self.addEventListener('activate', event => {
   // delete old caches
   event.waitUntil(
     caches.keys()
-      .then((keys) => {
-        console.log(keys);
+      .then((keys) => Promise.all(
+        keys
+          .filter((key) => key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
+      ))
+      .then(() => {
+        console.log(`${CACHE_NAME} ready to handle fetches!`);
       })
   );
-  console.log(`${CACHE_NAME} ready to handle fetches!`);
 });
 
 self.addEventListener('fetch', function(event) {
