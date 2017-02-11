@@ -34,7 +34,7 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(function(cache) {
-        console.log(`Caching ${urlsToCache}`);
+        console.log(`Caching ${urlsToCache.length} assets`);
         return cache.addAll(urlsToCache);
       })
   );
