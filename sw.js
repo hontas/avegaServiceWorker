@@ -50,8 +50,10 @@ self.addEventListener('activate', event => {
       .then((keys) => Promise.all(
         keys
           .filter((key) => key !== CACHE_NAME)
-          .forEach((key) => console.log(`removing caches for ${key}`))
-          .map((key) => caches.delete(key))
+          .map((key) => {
+            console.log(`removing caches for ${key}`);
+            return caches.delete(key);
+          })
       ))
       .then(() => {
         console.log(`${CACHE_NAME} ready to handle fetches!`);
