@@ -1,3 +1,10 @@
+class: center, middle
+
+# Service Workers
+
+[github.com/hontas/avegaServiceWorker](https://github.com/hontas/avegaServiceWorker)
+
+---
 class: center, we-can-do-it
 
 ![service-workers](We_Can_Do_It_before.jpg)
@@ -7,14 +14,6 @@ class: center, we-can-do-it
 class: center, we-can-do-it
 
 ![service-workers](We_Can_Do_It_full.jpg)
-
----
-
-class: center, middle
-
-# Service Workers
-
-[github.com/hontas/avegaServiceWorker](https://github.com/hontas/avegaServiceWorker)
 
 ---
 
@@ -34,32 +33,42 @@ name: what-are-sw
 
 # What are Service Workers?
 
+???
+vilka vet/ har använt?
+
+--
+
 > A script that runs in the background, separate from a web page. Can intercept and handle network requests and programmatically manage a cache.
 
-- Support offline experiences
-- Can't access the DOM directly
-- Cannot rely on global state
-- Have access to the IndexedDB API
+???
+
+nätverksproxy
+
+--
+
 - Requires HTTPS
+- Support offline
+- Can't access the DOM
+- Cannot rely on global state
 
 ???
-offline: by caching assets and using them for response
+HTTPS: unless localhost, Having modified network requests wide open to man in the middle attacks would be really bad
+
+offline: by caching assets and using them for response & IndexedDB API
 
 Global state: terminated when not in use, restarted when  needed
-
-HTTPS: unless localhost
 
 ---
 name: what-are-sw-image
 
 # What are Service Workers?
 
-.center[![service-worker-diagram](http://nolanlawson.github.io/pwas-2016-05/img/service-worker-jaffa.png)]
+![service-worker-diagram](http://nolanlawson.github.io/pwas-2016-05/img/service-worker-jaffa.png)
 
 ???
 page -> serviceWorker -> network
 
-avbryta svara med annat
+avbryta svara med annat (cache/hittepå)
 
 modifiera svaret innan det går tillbaka
 
@@ -67,12 +76,16 @@ modifiera svaret innan det går tillbaka
 name: browser-support
 
 # Browser support
-[caniuse.com/#feat=serviceworkers](http://caniuse.com/#feat=serviceworkers) |
 
+[![caniuse](caniuse-sw.png)](http://caniuse.com/#feat=serviceworkers "caniuse.com/#feat=serviceworkers")
 
-![caniuse](caniuse-sw.png)
+[jakearchibald.github.io/isserviceworkerready](https://jakearchibald.github.io/isserviceworkerready/)
 
-You can follow the progress of all the browsers at [Jake Archibald's is Serviceworker ready site](https://jakearchibald.github.io/isserviceworkerready/)
+???
+
+Edge: In development
+
+Safari: Under consideration, Brief positive signals in five year plan.
 
 ---
 name: basic-usage
@@ -89,29 +102,49 @@ if ('serviceWorker' in navigator) { // progressive enhancement
 }
 ```
 
+--
+
 ![important.png](https://mdn.mozillademos.org/files/12630/important-notes.png)
+
+???
+
+The service worker will catch requests from the clients __under__ scope only
+
+Must be server over https
+
+The max scope is the location of the worker
 
 ---
 name: sw-lifecycle
 
 # SW Lifecycle
-> [sw-lifecycle-image#1](https://mdn.mozillademos.org/files/12636/sw-lifecycle.png)
-> [sw-lifecycle-image#2](https://developers.google.com/web/fundamentals/getting-started/primers/imgs/sw-lifecycle.png)
 
 ```js
 self.addEventListener('install', function(event) {
-  /* precache */
+  event.waitUntil();
 });
 
 self.addEventListener('activate', function(event) {
-  /* remove old caches */
+  event.waitUntil();
 });
 
 self.addEventListener('fetch', function(event) {
-  /* handle requests */
+  event.respondWith();
 });
 ```
 
+???
+andra events:
+
+sync
+
+message
+
+onnotificationclick
+
+--
+
+[sw-lifecycle-image#1](https://mdn.mozillademos.org/files/12636/sw-lifecycle.png) | [sw-lifecycle-image#2](https://developers.google.com/web/fundamentals/getting-started/primers/imgs/sw-lifecycle.png)
 
 ???
 
@@ -123,9 +156,20 @@ name: sw-strategies
 
 # SW Strategies
 
- - Cache first
- - Network first
- - Race
+ - Cache only
+ - Network only
+ - Cache, falling back to network
+ - Cache & network race
+ - Network falling back to cache
+ - Cache then network
+ - Generic fallback
+ - ServiceWorker-side templating
+
+???
+
+Generic fallback: cache, then netwrk then other cache (offline)
+
+ServiceWorker-side templating: create response
 
 ---
 name: examples
@@ -134,22 +178,22 @@ name: examples
 
 [http://localhost:3000](http://localhost:3000)
 
+--
+
 ![stale-while-revalidate](stale-while-revalidate.png)
 
 ???
-Startsidan: nada
+Startsidan: nada -> devTools
 
 1: precache
 
-2: dynamisk cache
+2: cacha allt - stale while revalidate
 
-3: cacha allt - stale while revalidate
+3: trixar med responsen
 
-4: trixar med responsen
+4: custom 404 och offline-sida
 
-5: custom 404 och offline-sida
-
-6: save for later
+5: save for later
 
 ---
 name: to-the-stars

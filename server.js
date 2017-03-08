@@ -11,8 +11,7 @@ const headlines = [
   'Vi kör med precache och går nästan offline 😏',
   'Vi cachar dynamiskt och går helt offline 😎',
   'Vi trixar med responsen 😜',
-  'Vi har custom 404 och offline-sida 😚',
-  'Vi genererar new Response()'
+  'Vi har custom 404 och offline-sida 😚'
 ];
 
 app.get('/', (req, res) => {
