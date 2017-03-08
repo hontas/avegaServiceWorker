@@ -5,6 +5,6 @@ Service Workers
 npm install && npm start
 ```
 
-[slides](http://localhost:3000/slides)
-
-[examples](http://localhost:3000)
+Then check out the slides and examples
+- [http://localhost:3000](http://localhost:3000)
+- [http://localhost:3000/slides](http://localhost:3000/slides)
