@@ -179,6 +179,9 @@ name: examples
 [http://localhost:3000](http://localhost:3000)
 
 --
+name: examples-2
+
+staleWhileRevalidate
 
 ![stale-while-revalidate](stale-while-revalidate.png)
 
