@@ -1,5 +1,10 @@
 const staticResourceUrls = [
   './',
+  '/1',
+  '/2',
+  '/3',
+  '/4',
+  '/blogg',
   '/assets/11-matchningsprincipen.svg',
   '/assets/all.css',
   '/assets/cellphone_2-1-540x320.jpg',

@@ -1,16 +1,19 @@
 importScripts('../assets/serviceworker-utils.js');
 
+/**
+ * Use staleWhileRevalidate to serve race between network & cache
+ * with fallback to network which then updates the cache. Simple ;)
+ */
+
 const STATIC_CACHE = 'static-v2';
 const DYNAMIC_CACHE = 'dynamic';
 const STATIC_CACHE_URLS = staticResourceUrls;
 
 self.addEventListener('install', function(event) {
-  console.log(`Install`);
   event.waitUntil(precache(STATIC_CACHE_URLS, STATIC_CACHE));
 });
 
 self.addEventListener('activate', event => {
-  console.log(`Activate`);
   event.waitUntil(removeOldCaches([STATIC_CACHE]));
 });
 

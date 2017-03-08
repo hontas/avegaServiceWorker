@@ -1,5 +1,10 @@
 importScripts('../assets/serviceworker-utils.js');
 
+/**
+ * intercept request for a specific resource and
+ * respond with another one
+ */
+
 const replacementPhotos = [
   'avega_car.jpg',
   'avegasenso1.jpg',
@@ -15,12 +20,10 @@ const STATIC_CACHE_URLS = replacementPhotos
   .concat(staticResourceUrls);
 
 self.addEventListener('install', function(event) {
-  console.log(`Install`);
   event.waitUntil(precache(STATIC_CACHE_URLS, STATIC_CACHE));
 });
 
 self.addEventListener('activate', event => {
-  console.log('Activate');
   event.waitUntil(removeOldCaches([STATIC_CACHE]));
 });
 

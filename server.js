@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const app = express();
 
 app.set('view engine', 'pug');
@@ -29,17 +30,17 @@ app.get('/blogg/:post', (req, res) => {
   res.render(`posts/${req.params.post}`);
 });
 
-
 // service worker subpages
-app.get(/\/\d/, (req, res) => {
+app.get(/\/\d/, (req, res, next) => {
   const index = Number(req.path.replace(/\//g, ''));
+  const headline = headlines[index];
   const swScope = `/${index}`;
   const swPath = `/sw${index}.js`;
 
-  res.render('sw', {
-    headline: headlines[index],
-    swPath,
-    swScope
+  // only render view if there is an accompanying SW
+  fs.access(path.join(__dirname, 'public', swPath), (err) => {
+    if (err) return next();
+    res.render('sw', { headline, swPath, swScope });
   });
 });
 

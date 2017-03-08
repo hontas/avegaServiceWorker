@@ -1,5 +1,11 @@
 importScripts('../assets/serviceworker-utils.js');
 
+/**
+ * Precache static assets to
+ * enable off-line.
+ * This will NOT cache webfonts
+ */
+
 const PRECACHE = 'precache-v2';
 const ASSETS = staticResourceUrls;
 
