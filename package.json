@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/hontas/avegaServiceWorker#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.0",
     "pug": "^2.0.0-beta11"
   },

@@ -1,8 +1,10 @@
+const bodyParser = require('body-parser');
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const app = express();
 
+app.use(bodyParser.json());
 app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/slides', express.static(path.join(__dirname, 'slides')));
@@ -28,6 +30,11 @@ app.get('/blog', (req, res) => {
 
 app.get('/blog/:post', (req, res) => {
   res.render(`posts/${req.params.post}`);
+});
+
+app.post('/push/register', (req, res) => {
+  console.log('register for push', req.body)
+  res.sendStatus(201);
 });
 
 // service worker subpages
