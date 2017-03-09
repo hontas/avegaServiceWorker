@@ -19,14 +19,14 @@ app.get('/', (req, res) => {
   res.render('index', { headline: headlines[0] });
 });
 
-app.get('/blogg', (req, res) => {
+app.get('/blog', (req, res) => {
   res.render('blog', {
     swPath: '/swBlog.js',
     swScope: '/blog'
   });
 });
 
-app.get('/blogg/:post', (req, res) => {
+app.get('/blog/:post', (req, res) => {
   res.render(`posts/${req.params.post}`);
 });
 

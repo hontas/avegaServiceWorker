@@ -1,4 +1,4 @@
-extends sw.pug
+extends index.pug
 
 block main
   main
@@ -125,6 +125,18 @@ block main
             h2 Global PLM plattform p&aring; Sandvik Machining Solutions
 
 block append scripts
+  script(type='text/javascript', src="/assets/pushClient.js")
+  script(type='text/javascript').
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('#{swPath}', {scope: '#{swScope}'})
+          .then((reg) => {
+            console.log('ServiceWorker registration successful with scope: ', reg.scope);
+            push.subscribe(reg);
+          })
+          .catch((err) => console.log('ServiceWorker registration failed: ', err));
+      });
+    }
   script(type='text/javascript').
     const assets = {
       '/blogg/sap-bw-pa-hana-hos-sj/': [

@@ -4,7 +4,7 @@ const staticResourceUrls = [
   '/2',
   '/3',
   '/4',
-  '/blogg',
+  '/blog',
   '/assets/11-matchningsprincipen.svg',
   '/assets/all.css',
   '/assets/cellphone_2-1-540x320.jpg',
